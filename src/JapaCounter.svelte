@@ -6,7 +6,7 @@
 
   import { getSettings, applyTheme } from './lib/stores/settings.svelte';
   import { tapVibrate, completionVibrate } from './lib/utils/haptics';
-  import { playBellSound, playClickSound, playCompletionSound } from './lib/utils/audio';
+  import { playBellSound, playClickSound, playCompletionSound, primeAudio } from './lib/utils/audio';
   import { requestWakeLock, releaseWakeLock } from './lib/utils/wakelock';
   import { createPersistentState } from './lib/stores/persistence.svelte';
 
@@ -76,6 +76,7 @@
 
     // Audio
     if (settings.value.audioEnabled) {
+      primeAudio();
       if (count % target === 0) {
         playCompletionSound();
       } else {
@@ -186,11 +187,15 @@
   <!-- Absolute Gear Icon for Settings -->
   <button
     onclick={() => showSettings = true}
-    class="absolute right-3 top-3 z-40 rounded-full p-2 transition-transform hover:rotate-45 sm:right-4 sm:top-4"
-    style="color: var(--text-muted);"
+    class="absolute right-3 top-3 z-40 rounded-full border p-3 shadow-lg transition-all hover:rotate-45 hover:brightness-110 sm:right-4 sm:top-4 sm:p-3.5"
+    style="
+      color: var(--text-muted);
+      background-color: color-mix(in srgb, var(--bg-surface) 76%, transparent);
+      border-color: var(--border);
+    "
     aria-label="Settings"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 sm:h-8 sm:w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
   </button>
 
   {#if showSettings}

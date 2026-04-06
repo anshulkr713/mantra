@@ -4,24 +4,102 @@
  */
 
 let audioContext: AudioContext | null = null;
+let audioReadyPromise: Promise<AudioContext | null> | null = null;
+let audioUnlocked = false;
 
-function getAudioContext(): AudioContext {
+declare global {
+  interface Window {
+    webkitAudioContext?: typeof AudioContext;
+  }
+}
+
+function createAudioContext(): AudioContext | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const AudioContextConstructor = window.AudioContext ?? window.webkitAudioContext;
+
+  if (!AudioContextConstructor) {
+    return null;
+  }
+
   if (!audioContext) {
-    audioContext = new AudioContext();
+    audioContext = new AudioContextConstructor();
   }
-  if (audioContext.state === 'suspended') {
-    audioContext.resume();
-  }
+
   return audioContext;
+}
+
+function unlockAudioOutput(ctx: AudioContext): void {
+  if (audioUnlocked) {
+    return;
+  }
+
+  const buffer = ctx.createBuffer(1, 1, ctx.sampleRate);
+  const source = ctx.createBufferSource();
+  const gain = ctx.createGain();
+
+  source.buffer = buffer;
+  gain.gain.value = 0;
+
+  source.connect(gain).connect(ctx.destination);
+  source.start();
+
+  audioUnlocked = true;
+}
+
+async function ensureAudioContext(): Promise<AudioContext | null> {
+  const ctx = createAudioContext();
+
+  if (!ctx) {
+    return null;
+  }
+
+  if (ctx.state === 'running') {
+    unlockAudioOutput(ctx);
+    return ctx;
+  }
+
+  if (!audioReadyPromise) {
+    audioReadyPromise = ctx.resume()
+      .then(() => {
+        if (ctx.state === 'running') {
+          unlockAudioOutput(ctx);
+          return ctx;
+        }
+
+        return null;
+      })
+      .catch(() => null)
+      .finally(() => {
+        audioReadyPromise = null;
+      });
+  }
+
+  return audioReadyPromise;
+}
+
+function withAudio(playback: (ctx: AudioContext) => void): void {
+  void ensureAudioContext().then((ctx) => {
+    if (!ctx) {
+      return;
+    }
+
+    playback(ctx);
+  });
+}
+
+export function primeAudio(): void {
+  void ensureAudioContext();
 }
 
 /**
  * Play a soft singing bowl / bell tone
  */
 export function playBellSound(): void {
-  try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
+  withAudio((ctx) => {
+    const now = ctx.currentTime + 0.01;
 
     // Fundamental tone
     const osc1 = ctx.createOscillator();
@@ -63,18 +141,15 @@ export function playBellSound(): void {
     osc1.stop(now + 2.0);
     osc2.stop(now + 1.5);
     osc3.stop(now + 2.5);
-  } catch {
-    // Audio not available
-  }
+  });
 }
 
 /**
  * Play a subtle click/tap sound
  */
 export function playClickSound(): void {
-  try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
+  withAudio((ctx) => {
+    const now = ctx.currentTime + 0.01;
 
     const osc = ctx.createOscillator();
     osc.type = 'sine';
@@ -88,18 +163,15 @@ export function playClickSound(): void {
     osc.connect(gain).connect(ctx.destination);
     osc.start(now);
     osc.stop(now + 0.1);
-  } catch {
-    // Audio not available
-  }
+  });
 }
 
 /**
  * Play a completion chime (round complete)
  */
 export function playCompletionSound(): void {
-  try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
+  withAudio((ctx) => {
+    const now = ctx.currentTime + 0.01;
 
     const notes = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
 
@@ -117,7 +189,5 @@ export function playCompletionSound(): void {
       osc.start(now + i * 0.15);
       osc.stop(now + i * 0.15 + 2);
     });
-  } catch {
-    // Audio not available
-  }
+  });
 }
