@@ -4,24 +4,18 @@
   let showPulse = $state(false);
   let rippleId = 0;
 
-  function handleTap(e: MouseEvent | TouchEvent) {
+  function handleTap(e: PointerEvent) {
+    if (!e.isPrimary || e.button !== 0) {
+      return;
+    }
+
     e.preventDefault();
 
     // Get tap coordinates
-    let x: number, y: number;
     const target = e.currentTarget as HTMLElement;
     const rect = target.getBoundingClientRect();
-
-    if ('touches' in e && e.touches.length > 0) {
-      x = e.touches[0].clientX - rect.left;
-      y = e.touches[0].clientY - rect.top;
-    } else if ('clientX' in e) {
-      x = (e as MouseEvent).clientX - rect.left;
-      y = (e as MouseEvent).clientY - rect.top;
-    } else {
-      x = rect.width / 2;
-      y = rect.height / 2;
-    }
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
     // Add ripple
     const id = ++rippleId;
@@ -53,8 +47,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   class="absolute inset-0 z-10 cursor-pointer select-none overflow-hidden"
-  ontouchstart={handleTap}
-  onmousedown={handleTap}
+  onpointerdown={handleTap}
   onkeydown={handleKeydown}
   role="button"
   tabindex="0"

@@ -167,8 +167,7 @@
     <!-- Reset Button (Very subtle at bottom) -->
     <button
       onclick={handleReset}
-      onmousedown={(e) => e.stopPropagation()}
-      ontouchstart={(e) => e.stopPropagation()}
+      onpointerdown={(e) => e.stopPropagation()}
       class="absolute bottom-4 z-20 rounded-full px-6 py-2 text-xs font-bold uppercase tracking-widest transition-all hover:brightness-125 sm:bottom-6"
       style="
         background-color: var(--bg-surface);
