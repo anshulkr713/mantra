@@ -8,13 +8,13 @@
 
 {#if currentPath === '/japacounter' || currentPath === '/japacounter/'}
   <JapaCounter />
-{#else if currentPath === '/'}
+{:else if currentPath === '/'}
   <!-- 
     The homepage is intentionally blank for now. 
     Tomorrow, you can add your new components here! 
   -->
   <div style="background-color: var(--bg-primary); min-height: 100vh;"></div>
-{#else}
+{:else}
   <div style="background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
     <h1>404 - Not Found</h1>
   </div>
