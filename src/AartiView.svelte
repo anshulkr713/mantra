@@ -57,16 +57,17 @@
 {:else}
   <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-y-auto pb-32 w-full">
     <!-- Header -->
-    <header class="sticky top-0 z-40 bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border)] px-4 py-4 md:px-8">
+    <header class="sticky top-0 z-40 bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border)]/50 px-4 py-4 md:px-8 shadow-sm">
       <div class="max-w-4xl mx-auto flex items-center gap-4">
-        <a href="/" class="p-2 -ml-2 rounded-full hover:bg-[var(--bg-surface)] text-[var(--text-secondary)] transition-colors" aria-label="Go back">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <a href="/" class="p-2 -ml-2 rounded-full hover:bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors" aria-label="Go back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </a>
         <div>
-          <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2">
-            {aarti.name} <span class="text-2xl">{aarti.deityEmoji}</span>
+          <h1 class="text-xl md:text-3xl font-bold flex items-center gap-3">
+            <span class="text-2xl md:text-3xl filter drop-shadow-md">{aarti.deityEmoji}</span>
+            <span class="bg-gradient-to-r from-[var(--text-primary)] to-[var(--text-muted)] bg-clip-text text-transparent">{aarti.name}</span>
           </h1>
-          <p class="text-sm text-[var(--text-muted)] truncate max-w-sm">{aarti.description}</p>
+          <p class="text-xs md:text-sm text-[var(--text-muted)] truncate max-w-[250px] md:max-w-md pt-1">{aarti.description}</p>
         </div>
       </div>
     </header>
@@ -88,20 +89,29 @@
     {/if}
 
     <!-- Verses Content -->
-    <main class="max-w-4xl mx-auto px-4 md:px-8 pt-4 pb-12">
+    <main class="max-w-3xl mx-auto px-6 md:px-8 pt-8 pb-20">
       {#if currentTranslation}
-        <div class="space-y-6 md:space-y-8 animate-fade-in text-center">
+        <div class="space-y-12 md:space-y-16 animate-fade-in text-center">
           {#each currentTranslation.verses as verse, i}
-            <p 
-              class="text-lg md:text-2xl leading-relaxed text-[var(--text-primary)]"
-              style="font-family: {availableLanguages.find(l => l.code === selectedLangCode)?.fontFamily || 'var(--font-serif)'};"
-            >
-              {verse}
-            </p>
+            <div class="verse-block">
+              <p 
+                class="text-xl md:text-3xl font-medium leading-[2.2] md:leading-[2.5] text-[var(--text-primary)] whitespace-pre-line drop-shadow-sm"
+                style="font-family: {availableLanguages.find(l => l.code === selectedLangCode)?.fontFamily || 'var(--font-serif)'};"
+              >
+                {verse}
+              </p>
+              {#if i < currentTranslation.verses.length - 1}
+                <div class="flex justify-center mt-12 md:mt-16 opacity-30">
+                  <span class="w-2 h-2 rounded-full bg-[var(--accent)] mx-1"></span>
+                  <span class="w-2 h-2 rounded-full bg-[var(--accent)] mx-1"></span>
+                  <span class="w-2 h-2 rounded-full bg-[var(--accent)] mx-1"></span>
+                </div>
+              {/if}
+            </div>
           {/each}
         </div>
       {:else}
-        <div class="text-center py-20 text-[var(--text-muted)] animate-pulse">
+        <div class="text-center py-20 text-[var(--text-muted)] animate-pulse text-xl">
           Translating lyrics...
         </div>
       {/if}

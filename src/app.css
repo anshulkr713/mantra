@@ -95,16 +95,16 @@
 
 /* Root CSS variables for theme switching */
 :root {
-  --bg-primary: var(--color-earth-900);
-  --bg-secondary: var(--color-earth-800);
-  --bg-surface: var(--color-earth-700);
-  --text-primary: var(--color-earth-50);
-  --text-secondary: var(--color-earth-400);
-  --text-muted: var(--color-earth-500);
-  --accent: var(--color-saffron-500);
-  --accent-hover: var(--color-saffron-400);
-  --accent-dim: var(--color-saffron-900);
-  --border: var(--color-earth-700);
+  --bg-primary: #0A0806;
+  --bg-secondary: #14110E;
+  --bg-surface: #1E1A16;
+  --text-primary: #FDEBD0;
+  --text-secondary: #D4C3AC;
+  --text-muted: #8E8271;
+  --accent: #FF7B00;
+  --accent-hover: #E66A00;
+  --accent-dim: rgba(255, 123, 0, 0.15);
+  --border: #2C2621;
   color-scheme: dark;
 }
 

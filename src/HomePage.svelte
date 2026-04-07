@@ -14,26 +14,26 @@
 <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] w-full overflow-hidden">
   
   <!-- Hero Section -->
-  <header class="relative overflow-hidden pt-24 pb-16 px-6 text-center lg:pt-32 lg:pb-24">
+  <header class="relative overflow-hidden pt-28 pb-20 px-6 text-center lg:pt-36 lg:pb-28">
     <!-- Abstract background effect -->
-    <div class="absolute inset-0 z-0 opacity-40">
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-96 bg-[var(--accent)] rounded-full blur-[120px] mix-blend-screen pointer-events-none"></div>
+    <div class="absolute inset-0 z-0 opacity-60">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[500px] bg-[var(--accent)] rounded-full blur-[150px] mix-blend-screen pointer-events-none"></div>
     </div>
 
-    <div class="relative z-10 space-y-6 max-w-2xl mx-auto">
-      <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-[var(--text-primary)]">
+    <div class="relative z-10 space-y-6 max-w-3xl mx-auto">
+      <h1 class="text-6xl md:text-8xl font-bold tracking-tight bg-gradient-to-b from-white to-[var(--text-secondary)] bg-clip-text text-transparent drop-shadow-sm pb-2">
         {title}
       </h1>
-      <p class="text-lg md:text-2xl text-[var(--text-secondary)] font-medium">
+      <p class="text-xl md:text-3xl text-[var(--text-secondary)] font-medium max-w-2xl mx-auto drop-shadow-sm">
         {subtitle}
       </p>
       
-      <div class="mt-8">
+      <div class="mt-12 pt-4">
         <a 
           href="/japacounter" 
-          class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[var(--accent)] text-white font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(249,115,22,0.6)]"
+          class="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-[var(--accent)] text-white font-bold text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_50px_rgba(249,115,22,0.5)] hover:shadow-[0_0_80px_rgba(249,115,22,0.8)] border border-[var(--accent-hover)]"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           Open Japa Counter
         </a>
       </div>
@@ -57,18 +57,18 @@
         {#each allAartis as aarti}
           <a 
             href={`/aarti/${aarti.slug}`}
-            class="group block p-6 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border)] hover:border-[var(--accent)] transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 relative overflow-hidden"
+            class="group block p-6 md:p-8 rounded-[2rem] bg-gradient-to-b from-[var(--bg-surface)] to-[var(--bg-secondary)] border border-[var(--border)] hover:border-[var(--accent)] transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] hover:-translate-y-2 relative overflow-hidden backdrop-blur-sm"
           >
             <!-- Hover highlight glow -->
-            <div class="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
-            <div class="relative z-10 flex items-start gap-4">
-              <div class="w-14 h-14 shrink-0 rounded-2xl bg-[var(--bg-secondary)] flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-inner">
-                {aarti.deityEmoji}
+            <div class="relative z-10 flex items-start gap-5">
+              <div class="w-16 h-16 shrink-0 rounded-2xl bg-[var(--bg-primary)] flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-500 shadow-inner border border-[var(--border)]/50">
+                <span class="filter drop-shadow-md">{aarti.deityEmoji}</span>
               </div>
-              <div class="space-y-1 flex-1">
-                <h3 class="font-bold text-lg text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">{aarti.name}</h3>
-                <p class="text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed">{aarti.description}</p>
+              <div class="space-y-1.5 flex-1 pt-1">
+                <h3 class="font-bold text-xl text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">{aarti.name}</h3>
+                <p class="text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed opacity-90">{aarti.description}</p>
               </div>
             </div>
           </a>
