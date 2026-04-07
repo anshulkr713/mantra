@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mantra.toolspoon.com/sitemap.xml
