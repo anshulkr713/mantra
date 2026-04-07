@@ -37,8 +37,8 @@
   --color-sacred: #7C3AED;
 
   /* Fonts */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Noto Serif Devanagari', Georgia, serif;
+  --font-sans: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
+  --font-serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
 
   /* Animations */
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
@@ -96,15 +96,19 @@
 /* Root CSS variables for theme switching */
 :root {
   --bg-primary: #0A0806;
-  --bg-secondary: #14110E;
-  --bg-surface: #1E1A16;
-  --text-primary: #FDEBD0;
-  --text-secondary: #D4C3AC;
-  --text-muted: #8E8271;
-  --accent: #FF7B00;
-  --accent-hover: #E66A00;
-  --accent-dim: rgba(255, 123, 0, 0.15);
-  --border: #2C2621;
+  --bg-secondary: #14100B;
+  --bg-surface: #1D1610;
+  --bg-elevated: #241A12;
+  --text-primary: #F7E9D2;
+  --text-secondary: #D5C2A6;
+  --text-muted: #94816B;
+  --accent: #FF9A3A;
+  --accent-hover: #FFB05F;
+  --accent-soft: #FFD09A;
+  --accent-dim: rgba(255, 154, 58, 0.14);
+  --border: #2E241A;
+  --border-strong: rgba(255, 182, 109, 0.18);
+  --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.28);
   color-scheme: dark;
 }
 
@@ -112,13 +116,17 @@
   --bg-primary: var(--color-amber-50);
   --bg-secondary: var(--color-saffron-50);
   --bg-surface: white;
+  --bg-elevated: #fff7ec;
   --text-primary: var(--color-earth-900);
   --text-secondary: var(--color-earth-600);
   --text-muted: var(--color-earth-400);
   --accent: var(--color-saffron-600);
   --accent-hover: var(--color-saffron-500);
+  --accent-soft: var(--color-saffron-500);
   --accent-dim: var(--color-saffron-100);
   --border: var(--color-earth-200);
+  --border-strong: rgba(194, 65, 12, 0.16);
+  --shadow-soft: 0 20px 60px rgba(100, 64, 27, 0.12);
   color-scheme: light;
 }
 
@@ -137,10 +145,15 @@ html, body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   touch-action: manipulation;
   user-select: none;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body,
@@ -152,6 +165,16 @@ body,
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(255, 154, 58, 0.24);
+  color: var(--text-primary);
 }
 
 /* Scrollbar styling */
