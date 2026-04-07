@@ -6,6 +6,11 @@
   const subtitle = "Discover Peace & Devotion";
 </script>
 
+<svelte:head>
+  <title>Mantra | Authentic Aartis, Stotrams, and Japa Counter</title>
+  <meta name="description" content="A premium sanctuary for spiritual practice. Read authentic Aartis, Chalisa, and Stotrams in 8 languages with a built-in virtual Japa Meditation Counter." />
+</svelte:head>
+
 <div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] w-full overflow-hidden">
   
   <!-- Hero Section -->

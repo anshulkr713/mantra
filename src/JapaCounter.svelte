@@ -95,6 +95,12 @@
     }
   }
 </script>
+
+<svelte:head>
+  <title>Private Japa Counter | Mantra</title>
+  <meta name="description" content="A private Japa meditation counter with immersive mala bead visualization, rich audio and haptic feedback, and offline support." />
+</svelte:head>
+
 <div class="flex min-h-full flex-col overflow-hidden" style="background-color: var(--bg-primary);">
   <!-- Main Display centered -->
   <main class="relative flex flex-1 flex-col items-center justify-center p-4 sm:p-6 md:p-8">
